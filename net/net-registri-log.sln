@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31702.278
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "net-registri-log", "net-registri-log\net-registri-log.csproj", "{CBAA82A8-3D01-44E4-8249-34F5CBD5214C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "net-registri-log.webapi", "net-registri-log.webapi\net-registri-log.webapi.csproj", "{83360880-E6C2-4E61-992C-D90EC6260F27}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CBAA82A8-3D01-44E4-8249-34F5CBD5214C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBAA82A8-3D01-44E4-8249-34F5CBD5214C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBAA82A8-3D01-44E4-8249-34F5CBD5214C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBAA82A8-3D01-44E4-8249-34F5CBD5214C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83360880-E6C2-4E61-992C-D90EC6260F27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83360880-E6C2-4E61-992C-D90EC6260F27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83360880-E6C2-4E61-992C-D90EC6260F27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83360880-E6C2-4E61-992C-D90EC6260F27}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D52ED208-5E37-498C-8D5F-8FA9B264231F}
+	EndGlobalSection
+EndGlobal
