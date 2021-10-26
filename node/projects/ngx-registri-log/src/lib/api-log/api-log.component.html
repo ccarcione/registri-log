@@ -1,0 +1,72 @@
+<div class="table-container">
+  <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> ID </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef> DATA </th>
+      <td mat-cell *matCellDef="let element"> {{element.date | date: 'dd/MM/yyyy HH:mm:ss'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="method">
+      <th mat-header-cell *matHeaderCellDef> METODO </th>
+      <td mat-cell *matCellDef="let element"> {{element.method}} </td>
+    </ng-container>
+    <ng-container matColumnDef="url">
+      <th mat-header-cell *matHeaderCellDef> URL </th>
+      <td mat-cell *matCellDef="let element"> {{element.url}} </td>
+    </ng-container>
+    <ng-container matColumnDef="elapsedMilliseconds">
+      <th mat-header-cell *matHeaderCellDef> MILLISECONDI </th>
+      <td mat-cell *matCellDef="let element"> {{element.elapsedMilliseconds}} ms </td>
+    </ng-container>
+
+    <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+    <ng-container matColumnDef="expandedDetail">
+      <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+        <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+          <table style="width:100%">
+              <tr>
+                <th>INFORMAZIONI</th>
+                <th *ngIf="element.requestBody">RICHIESTA</th>
+                <th *ngIf="element.responseBody">RISPOSTA</th>
+              </tr>
+              <tr>
+                <th class="border info">
+                  <p>Id: {{element.id}}</p>
+                  <p>Data: {{element.date}}</p>
+                  <p>UserId: {{element.userId}}</p>
+                  <p>Metodo: {{element.method}}</p>
+                  <p>URL: {{element.url}}</p>
+                  <p>Query String: {{element.queryString}}</p>
+                  <p>Request Size: {{element.requestSize}}</p>
+                  <p>Response Size: {{element.responseSize}}</p>
+                  <p>Elapsed Milliseconds: {{element.elapsedMilliseconds}}</p>
+                </th>
+                <th class="border" *ngIf="element.requestBody">
+                  <ngx-json-viewer [json]="element.requestBodyObject" [expanded]="false" [depth]="0"></ngx-json-viewer>
+                </th>
+                <th class="border" *ngIf="element.responseBody">
+                  <ngx-json-viewer [json]="element.responseBodyObject" [expanded]="false" [depth]="0"></ngx-json-viewer>
+                </th>
+              </tr>
+            </table>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true"></tr>
+    <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row"
+      [class.example-expanded-row]="expandedElement === element"
+      (click)="expandedElement = expandedElement === element ? null : element">
+    </tr>
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+  </table>
+</div>
+
+<div class="paginator mat-elevation-z8">
+  <mat-paginator [length]="filtriView.paginazione.allItemsLength" [pageSize]="filtriView.paginazione.pageSize"
+    [pageSizeOptions]="filtriView.paginazione.selectItemsPerPage" (page)="changePage($event)">
+  </mat-paginator>
+</div>
