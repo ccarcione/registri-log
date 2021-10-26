@@ -1,0 +1,34 @@
+stages:
+  - deploy
+
+node-lib:
+  stage: deploy
+  image: node:latest
+  script:
+    - cd node
+    - npm i
+    - npx ng build ngx-registri-log --prod
+    - cd dist/ngx-registri-log
+    - echo '//registry.npmjs.org/:_authToken=$NPM_TOKEN'>.npmrc
+    - echo 'remember npm version minor'
+    - npm publish --access=public
+  except:
+    changes:
+      - "*.md"
+
+net-lib:
+  stage: deploy
+  image: mcr.microsoft.com/dotnet/sdk
+  needs: [node-lib]
+  script:
+    - cd net/net-registri-log
+    - dotnet restore
+    - dotnet build
+    - dotnet pack -c Release
+    - cd bin/Release
+    - dotnet nuget push *.nupkg -s $NuGetSource -k $NuGetApiKey
+  rules:
+    - if: $CI_COMMIT_TAG =~ /release/
+  except:
+    changes:
+      - "*.md"
