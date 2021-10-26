@@ -13,7 +13,7 @@ namespace net_registri_log.Shared.ExtensionMethods
         }
 
         /// <summary>
-        /// Se questi enum danno problemi di prestazioni pensare di sostituirlo con un dizionario.
+        /// If these enums cause performance problems, consider replacing them with a dictionary.
         /// https://stackoverflow.com/questions/16100/convert-a-string-to-an-enum-in-c-sharp/38711#38711
         /// </summary>
         /// <typeparam name="T"></typeparam>

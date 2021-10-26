@@ -89,8 +89,8 @@ namespace net_registri_log
                     string propertyName = property.Metadata.Name;
                     if (property.Metadata.IsPrimaryKey())
                     {
-                        // il valore "property.CurrentValue" è temp poiché l'id viene risolto da sql solo dopo query insert
-                        // quindi traccio le nuove entità così da aggiornare il campo dell'audit KeyValues con i corretti KVal.
+                        // the "property.CurrentValue" value is temporary because the id is resolved by sql only after query insert
+                        // then I trace the new entities so as to update the KeyValues audit field with the correct KVal.
                         _auditWithoutKeyValues[auditEntry] = entry;
                         continue;
                     }
@@ -120,7 +120,7 @@ namespace net_registri_log
                     }
                 }
 
-                // se l'oggetto è stato rimosso lo stato dell'operazione deve essere Removed
+                // if the object has been set removed, the operation status must be Removed
                 if (isRemoved)
                 {
                     auditEntry.AuditType = AuditLog.Models.Enums.AuditType.Removed;

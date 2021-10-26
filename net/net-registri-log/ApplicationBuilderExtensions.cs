@@ -14,18 +14,17 @@ namespace net_registri_log.Providers
         public static IApplicationBuilder UseNetRegistriLog(this IApplicationBuilder app)
         {
             app.UseMiddleware<ApiLogMiddleware>();
-            UpdateDatabaseMigrate(app);
+            UpdateDatabaseMigrate<RegistriLogDbContext>(app);
 
             return app;
         }
 
-        internal static async void UpdateDatabaseMigrate(IApplicationBuilder app)
+        public static async void UpdateDatabaseMigrate<T>(IApplicationBuilder app) where T : DbContext
         {
             using (var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
-                //var options = scope.ServiceProvider.GetRequiredService<Model.Options>();
-                var context = scope.ServiceProvider.GetRequiredService<RegistriLogDbContext>();
-                var logger = scope.ServiceProvider.GetRequiredService<ILogger<RegistriLogDbContext>>();
+                var context = scope.ServiceProvider.GetRequiredService<T>();
+                var logger = scope.ServiceProvider.GetRequiredService<ILogger<T>>();
 
                 string databaseName = context.Database.GetDbConnection().Database;
 
@@ -34,15 +33,15 @@ namespace net_registri_log.Providers
                     logger.LogDebug($"Database {databaseName} non trovato. Inizializzazione database con migrazione.");
                     await context.Database.MigrateAsync();
                 }
-                logger.LogDebug($"Database {databaseName} trovato!");
+                logger.LogDebug($"Database {databaseName} found!");
                 if ((await context.Database.GetPendingMigrationsAsync()).Any())
                 {
-                    logger.LogDebug($"Database {databaseName} non aggiornato. Applicazione migrazioni mancanti.");
+                    logger.LogDebug($"Database {databaseName} not updated. MigrateAsync...");
                     await context.Database.MigrateAsync();
+                    logger.LogDebug($"Database Updated.");
                 }
 
                 logger.LogDebug($"Check database {databaseName} OK.");
-                logger.LogDebug($"Database aggiornati.");
             }
         }
     }

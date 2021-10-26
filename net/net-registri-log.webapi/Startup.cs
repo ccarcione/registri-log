@@ -54,6 +54,8 @@ namespace net_registri_log.webapi
             {
                 endpoints.MapControllers();
             });
+
+            net_registri_log.Providers.ApplicationBuilderExtensions.UpdateDatabaseMigrate<ApplicationDbContext>(app);
         }
     }
 }
