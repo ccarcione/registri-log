@@ -9,7 +9,7 @@ node-lib:
     - npm i
     - npx ng build ngx-registri-log --prod
     - cd dist/ngx-registri-log
-    - echo '//registry.npmjs.org/:_authToken=$NPM_TOKEN'>.npmrc
+    - echo //registry.npmjs.org/:_authToken=$NPM_TOKEN > .npmrc
     - echo 'remember npm version minor'
     - npm publish --access=public
   rules:
