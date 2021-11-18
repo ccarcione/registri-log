@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using net_registri_log.ApiLog.Middleware;
+using net_registri_log.Logs.Middleware;
 using System.Linq;
 
 namespace net_registri_log.Providers
@@ -13,8 +14,20 @@ namespace net_registri_log.Providers
     {
         public static IApplicationBuilder UseNetRegistriLog(this IApplicationBuilder app)
         {
-            app.UseMiddleware<ApiLogMiddleware>();
             UpdateDatabaseMigrate<RegistriLogDbContext>(app);
+            using var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
+            
+            Logs.Models.Options logsOptions = scope.ServiceProvider.GetRequiredService<Logs.Models.Options>();
+            if (logsOptions.Enable)
+            {
+                app.UseMiddleware<EnrichLogMiddleware>();
+            }
+            
+            ApiLog.Models.Options apiLogOptions = scope.ServiceProvider.GetRequiredService<ApiLog.Models.Options>();
+            if (apiLogOptions.Enable)
+            {
+                app.UseMiddleware<ApiLogMiddleware>();
+            }
 
             return app;
         }

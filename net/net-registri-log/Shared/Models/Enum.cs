@@ -20,6 +20,8 @@ namespace net_registri_log.Shared.Models.Enums
         LogClient,
         [Display(Name = "AuditApi", Description = "Log api")]
         AuditApi,
+        [Display(Name = "Archiviato", Description = "Risorsa archiviata")]
+        Archiviato
     }
 
 }
