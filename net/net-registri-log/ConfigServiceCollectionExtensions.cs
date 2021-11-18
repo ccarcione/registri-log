@@ -1,4 +1,4 @@
-using net_registri_log;
+﻿using net_registri_log;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -16,11 +16,15 @@ namespace Microsoft.Extensions.DependencyInjection
             });
 
             services.AddSingleton<net_registri_log.ApiLog.Models.Options>(GetApiLogOptions(configuration));
+            services.AddSingleton<net_registri_log.Logs.Models.Options>(GetLogsOptions(configuration));
+            
             return services;
         }
 
         private static net_registri_log.ApiLog.Models.Options GetApiLogOptions(IConfiguration configuration)
             => configuration.GetSection("net-registri-log:ApiLog.Options").Get<net_registri_log.ApiLog.Models.Options>();
         
+        private static net_registri_log.Logs.Models.Options GetLogsOptions(IConfiguration configuration)
+            => configuration.GetSection("net-registri-log:Logs.Options").Get<net_registri_log.Logs.Models.Options>();
     }
 }

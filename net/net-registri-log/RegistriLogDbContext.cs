@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using net_registri_log.ApiLog.Models;
 using net_registri_log.AuditLog.Models;
+using net_registri_log.Logs.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -24,12 +25,14 @@ namespace net_registri_log
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Ignore<Log>();
+            modelBuilder.Entity<Log>(entity => {
+                entity.ToTable("Logs");
+            });
         }
 
         public DbSet<Audit> AuditLogs { get; set; }
         public DbSet<ApiObject> ApiLogs { get; set; }
-        //public DbSet<Log> Logs { get; set; }
+        public DbSet<Log> Logs { get; set; }
 
         /// <summary>
         /// SaveChangesAsync con sistema audit trail.
