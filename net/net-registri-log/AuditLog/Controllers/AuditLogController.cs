@@ -27,12 +27,11 @@ namespace net_registri_log.AuditLog.Controllers
         [HttpPost("GetPaginazione")]
         public async Task<IActionResult> GetAll([FromQuery] QueryParameters queryParameters, [FromBody] FiltriAuditLog filtri)
         {
-            _logger.LogDebug("non tracciare le successive operazioni sul context.");
             _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
 
             //_logger.LogDebugPushProperty("Sono state richieste le schedeTecniche con i seguenti filtri.", data: filtri);
 
-            IQueryable<Models.Audit> data = _context.AuditLogs
+            IQueryable<Audit> data = _context.AuditLogs
                 //.Where(c => filtri.DataDa.HasValue ? c.Data.Date >= filtri.DataDa.Value.Date : true)
                 //.Where(c => filtri.DataA.HasValue ? c.Data.Date <= filtri.DataA.Value.Date : true)
                 .Where(c => !string.IsNullOrWhiteSpace(filtri.UserId) ? c.UserId.Equals(filtri.UserId) : true)
@@ -43,18 +42,18 @@ namespace net_registri_log.AuditLog.Controllers
             switch (filtri.OrderColumn.ToEnum<FiltriAuditLogEnum>())
             {
                 case FiltriAuditLogEnum.Data:
-                    data = filtri.Desc ? data.OrderByDescending(c => c.DateTime) : data.OrderBy(nc => nc.DateTime);
+                    data = filtri.Desc ? data.OrderByDescending(c => c.DateTime) : data.OrderBy(c => c.DateTime);
                     break;
                 case FiltriAuditLogEnum.Id:
-                    data = filtri.Desc ? data.OrderByDescending(c => c.Id) : data.OrderBy(nc => nc.Id);
+                    data = filtri.Desc ? data.OrderByDescending(c => c.Id) : data.OrderBy(c => c.Id);
                     break;
                 default:
-                    data = filtri.Desc ? data.OrderByDescending(c => c.Id) : data.OrderBy(nc => nc.Id);
+                    data = filtri.Desc ? data.OrderByDescending(c => c.Id) : data.OrderBy(c => c.Id);
                     break;
             }
 
             PagedList<Audit> pagedList = PagedList<Audit>.ToPagedList(data, queryParameters);
-            _logger.LogDebug($"Ritornati {pagedList.Pagination.TotalCount} elementi Audit.");
+            _logger.LogDebug($"Returned {pagedList.Data.Count()} Audit items.");
 
             return Ok(pagedList);
         }

@@ -26,7 +26,6 @@ namespace net_registri_log.ApiLog.Controllers
         [HttpPost("GetPaginazione")]
         public async Task<IActionResult> GetAll([FromQuery] QueryParameters queryParameters, [FromBody] FiltriApiLog filtri)
         {
-            _logger.LogDebug("non tracciare le successive operazioni sul context.");
             _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
 
             IQueryable<ApiObject> data = _context.ApiLogs
@@ -52,7 +51,7 @@ namespace net_registri_log.ApiLog.Controllers
             }
 
             PagedList<ApiObject> pagedList = PagedList<ApiObject>.ToPagedList(data, queryParameters);
-            _logger.LogDebug($"Ritornati {pagedList.Pagination.TotalCount} elementi ApiLog.");
+            _logger.LogDebug($"Returned {pagedList.Data.Count()} ApiObject items.");
 
             return Ok(pagedList);
         }
