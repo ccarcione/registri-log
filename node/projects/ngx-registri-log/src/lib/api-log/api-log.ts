@@ -23,7 +23,6 @@ export class ApiLog {
     elapsedMilliseconds: number;
 
     constructor(data?: Partial<ApiLog>) {
-        console.log(data);
         Object.assign(this, data);
         this.id = (+this.id || 0);
         if (this.requestSize != null)

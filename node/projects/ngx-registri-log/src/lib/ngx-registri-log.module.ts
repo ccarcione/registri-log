@@ -5,11 +5,13 @@ import { AuditLogComponent } from '../lib/audit-log/audit-log.component';
 import { ApiLogComponent } from '../public-api';
 import { MaterialModule } from './material.module';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
+import { LogsComponent } from './logs/logs-view.component';
 
 @NgModule({
   declarations: [
     ApiLogComponent,
-    AuditLogComponent
+    AuditLogComponent,
+    LogsComponent
   ],
   imports: [
     CommonModule,
@@ -19,7 +21,8 @@ import { NgxJsonViewerModule } from 'ngx-json-viewer';
   ],
   exports: [
     ApiLogComponent,
-    AuditLogComponent
+    AuditLogComponent,
+    LogsComponent
   ]
 })
 export class NgxRegistriLogModule { }
