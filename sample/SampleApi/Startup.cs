@@ -27,7 +27,7 @@ namespace SampleApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddNetRegistriLog(Configuration.GetConnectionString("NetRegistriLog"));
+            services.AddNetRegistriLog(Configuration);
 
             services.AddDbContext<ApplicationDbContext>(options =>
             {
@@ -60,6 +60,8 @@ namespace SampleApi
             {
                 endpoints.MapControllers();
             });
+
+            net_registri_log.Providers.ApplicationBuilderExtensions.UpdateDatabaseMigrate<ApplicationDbContext>(app);
         }
     }
 }
