@@ -4,6 +4,19 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <RootNamespace>net_registri_log</RootNamespace>
     <Version>0.10.3</Version>
+    <Authors>Carcione Christian</Authors>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageProjectUrl>https://gitlab.com/projects-experimenta/registri-log</PackageProjectUrl>
+    <RepositoryUrl>https://gitlab.com/projects-experimenta/registri-log</RepositoryUrl>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageIconUrl />
+    <Description>Small Angular/.Net Core library that offers functions of:
+- EF Core Audit
+- API Request/Response logging
+- _Serilog_ additional functions
+- Angular GUI of all functions
+    </Description>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -29,6 +42,18 @@
     <PackageReference Include="Serilog.Expressions" Version="3.2.0" />
     <PackageReference Include="Serilog.Settings.Configuration" Version="3.3.0" />
     <PackageReference Include="Serilog.Sinks.MSSqlServer" Version="5.6.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\..\readme.md" Pack="true" PackagePath="\"/>
   </ItemGroup>
 
 </Project>
