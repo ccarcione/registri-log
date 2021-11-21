@@ -6,6 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using net_registri_log.Shared.ExtensionMethods;
 using net_registri_log.Logs.Models;
+using Newtonsoft.Json.Linq;
+using net_registri_log.Shared.Models.Enums;
 
 namespace net_registri_log.Logs.Controllers
 {
@@ -64,6 +66,85 @@ namespace net_registri_log.Logs.Controllers
             }
 
             return Ok(log);
+        }
+
+        /// <summary>
+        /// Scrivi nel registro di log
+        /// </summary>
+        /// <param name="jObjectModel"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        [HttpPost("Information")]
+        public ActionResult Information([FromBody] JObject jObjectModel, string message)
+        {
+            _logger.LogInformationPushProperty(message: message, jsonObject: jObjectModel, operation: OperazioneLogsEnum.LogClient);
+            return Ok();
+        }
+
+        /// <summary>
+        /// Scrivi nel registro di log
+        /// </summary>
+        /// <param name="jObjectModel"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        [HttpPost("Debug")]
+        public ActionResult Debug([FromBody] JObject jObjectModel, string message)
+        {
+            _logger.LogDebugPushProperty(message: message, jsonObject: jObjectModel, operation: OperazioneLogsEnum.LogClient);
+            return Ok();
+        }
+
+        /// <summary>
+        /// Scrivi nel registro di log
+        /// </summary>
+        /// <param name="jObjectModel"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        [HttpPost("Trace")]
+        public ActionResult Trace([FromBody] JObject jObjectModel, string message)
+        {
+            _logger.LogTracePushProperty(message: message, jsonObject: jObjectModel, operation: OperazioneLogsEnum.LogClient);
+            return Ok();
+        }
+
+        /// <summary>
+        /// Scrivi nel registro di log
+        /// </summary>
+        /// <param name="jObjectModel"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        [HttpPost("Critical")]
+        public ActionResult Critical([FromBody] JObject jObjectModel, string message)
+        {
+            _logger.LogCriticalPushProperty(message: message, jsonObject: jObjectModel, operation: OperazioneLogsEnum.LogClient);
+            return Ok();
+        }
+
+        /// <summary>
+        /// Scrivi nel registro di log
+        /// </summary>
+        /// <param name="jObjectModel"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        [HttpPost("Warning")]
+        public ActionResult Warning([FromBody] JObject jObjectModel, string message)
+        {
+            _logger.LogWarningPushProperty(message: message, jsonObject: jObjectModel, operation: OperazioneLogsEnum.LogClient);
+            return Ok();
+        }
+
+        /// <summary>
+        /// Scrivi nel registro di log
+        /// </summary>
+        /// <param name="jObjectModel"></param>
+        /// <param name="exMessage"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        [HttpPost("Error")]
+        public ActionResult Error([FromBody] JObject jObjectModel, string exMessage, string message)
+        {
+            _logger.LogErrorPushProperty(exception: new ClientException(exMessage), message: message, jsonObject: jObjectModel, operation: OperazioneLogsEnum.LogClient);
+            return Ok();
         }
     }
 }
